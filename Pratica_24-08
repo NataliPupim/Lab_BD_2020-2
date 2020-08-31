@@ -1,0 +1,151 @@
+ --Prática Aula 24-08
+ --Natali de Barros Pupim
+
+-- 1 Fazer um algoritmo que, dado 1 número, mostre se é múltiplo de 2,3,5 ou nenhum deles:
+
+DECLARE @valor INT
+SET @valor = 111
+
+PRINT 'VALOR: ' + CAST (@valor AS VARCHAR(3))
+PRINT ' '
+IF (@valor % 2 = 0)
+BEGIN
+	PRINT 'Múltiplo de 2'
+END
+ELSE
+BEGIN
+	PRINT 'Não múltiplo de 2'
+END
+
+IF (@valor % 3 = 0 )
+BEGIN
+	PRINT 'Múltiplo de 3'
+END
+ELSE
+BEGIN
+	PRINT 'Não múltiplo de 3'
+END
+
+IF (@valor % 5 = 0 )
+BEGIN
+	PRINT 'Múltiplo de 5'
+END
+ELSE
+BEGIN
+	PRINT 'Não múltiplo de 5'
+END
+
+
+-- 2 Fazer um algoritmo que, dados 3 números, mostre o maior e o menor:
+
+DECLARE @valor_1	INT,
+		@valor_2	INT,
+		@valor_3	INT,
+		@maior		INT,
+		@menor		INT
+
+SET @valor_1 = 11
+SET @valor_2 = 10
+SET @valor_3 = 25
+
+	SET @maior = @valor_1
+	SET @menor = @valor_1
+
+IF (@valor_2 > @maior)
+BEGIN 
+	SET @maior = @valor_2
+END
+ELSE
+BEGIN
+	SET @menor = @valor_2
+END
+	IF (@valor_3 > @maior)
+	BEGIN 
+		SET @maior = @valor_3
+	END
+	ELSE
+	BEGIN
+		SET @menor = @valor_3
+	END
+		PRINT'MAIOR = ' + CAST(@maior AS VARCHAR(2)) + '    '+ 'MENOR = ' + CAST(@menor AS VARCHAR(2))
+
+/*  -Primeira idealização que não deu certo! 
+
+IF (@valor_1 > @valor_2)
+BEGIN
+	SET @maior = @valor_1 
+	SET @menor = @valor_2
+END
+ELSE
+BEGIN
+	IF (@valor_2 > @valor_3)
+	BEGIN 
+		SET @menor = @valor_3
+	END
+	ELSE
+	IF (@valor_1 < @valor_3)
+	BEGIN 
+		IF 
+*/
+
+
+-- 3 Fazer um algoritmo que calcule os 15 primeiros termos da série de Fibonacci e a soma dos 15 primeiros termos:
+
+DECLARE @numero		INT,
+		@anterior	INT,
+		@proximo	INT,
+		@soma		INT,
+		@contador	INT
+
+SET @numero = 1
+SET @anterior = 0
+SET @soma = 0
+SET @contador = 0
+
+WHILE (@contador <15)
+BEGIN
+	SET @contador = @contador + 1
+	SET @soma = @soma + @numero
+	PRINT CAST(@numero AS VARCHAR(3))
+	SET @proximo = @numero + @anterior
+	SET @anterior = @numero
+	SET @numero = @proximo
+END
+PRINT ' '
+PRINT 'Soma do valor das 15 primeiras posições: ' + CAST(@soma AS VARCHAR(5))
+
+
+-- 4 Fazer um algoritmo que separa uma frase, imprimindo todas as letras em maiúsculo e, depois imprimindo todas em minúsculo:
+-- Não estou conseguindo
+
+-- 5 Fazer um algoritmo que verifica, dada uma palavra, se é, ou não, palíndromo:
+
+DECLARE @palavra		VARCHAR(32),
+		@inversao		VARCHAR(32),
+		@letra			CHAR(1),
+		@posicao		INT
+
+SET @palavra = 'ROTA'
+
+SET @palavra = (@palavra)
+SET @inversao = ''
+SET @posicao = 0
+
+WHILE(@posicao < LEN(@palavra))
+BEGIN
+	SET @posicao = @posicao + 1
+	SET @letra = SUBSTRING(@palavra, @posicao, 1)
+	SET @inversao = @letra + @inversao
+END
+IF(@palavra = @inversao)
+BEGIN
+	PRINT 'A palavra '+@palavra+' é um palíndromo.'
+END
+ELSE
+BEGIN
+	PRINT 'A palavra '+@palavra+' NÃO é um palíndromo.'
+END
+
+-- 6 Fazer um algoritmo que, dado um CPF diga se é válido:
+
+--hard core demais, não consegui
