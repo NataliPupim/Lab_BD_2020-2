@@ -37,10 +37,12 @@ AS
 		SET @Atividade = (SELECT MIN(Cod_atividade) FROM Atividade WHERE imc>=@imc)
 	END
 
-CREATE PROCEDURE sp_calculo_imc (@Peso FLOAT), 
-				@Altura		FLOAT,
-				@IMC		FLOAT OUTPUT)
+CREATE PROCEDURE sp_calculo_imc (@peso		DECIMAL(6,2), 
+								 @altura	DECIMAL(4,2),
+							  	 @imc		DECIMAL(5,2) OUTPUT)
 AS
-	PRINT 'Calculando IMC para peso = ' + CAST(@Peso AS VARCHAR(10)) + 
-		' e altura = ' + CAST(@Altura AS VARCHAR(10)) + '...'
-	SET @IMC = @Peso / (@Altura * @Altura)
+	PRINT 'Calculando IMC para peso = ' + CAST(@peso AS VARCHAR(10)) + 
+		' e altura = ' + CAST(@altura AS VARCHAR(10)) + '...'
+	SET @imc = @peso / (@altura * @altura)
+
+CREATE PROCEDURE sp_insere_aluno (@nome VARCHAR(100), 
