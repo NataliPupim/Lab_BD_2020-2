@@ -1,0 +1,46 @@
+CREATE DATABASE ACADEMIA
+
+CREATE TABLE Aluno (
+	Codigo_aluno		INT				NOT NULL,
+	Nome_aluno			VARCHAR(100)	NOT NULL,
+	PRIMARY KEY (Codigo_aluno))
+
+CREATE TABLE Atividade(
+	Cod_atividade		INT				NOT NULL,
+	Desc_atividade		VARCHAR(100)	NOT NULL,
+	IMC					FLOAT (6)		NOT NULL,
+	PRIMARY KEY (Cod_atividade))
+
+INSERT INTO Atividade VALUES	(1, 'Corrida + Step', 18.5),
+								(2, 'Biceps + Costas + Pernas', 24.9),
+								(3, 'Esteira + Biceps + Costas + Pernas', 29.9),
+								(4, 'Bicicleta + Biceps + Costas + Pernas', 34.9),
+								(5, 'Esteira + Bicicleta', 39.9)
+
+CREATE TABLE AtividadesAluno(
+	Codigo_aluno	INT				NOT NULL,
+	Altura			FLOAT			NOT NULL,
+	Peso			FLOAT			NOT NULL,
+	IMC				FLOAT,
+	Atividade		INT)
+
+CREATE PROCEDURE sp_busca_atividade (@IMC FLOAT, @Atividade INT OUTPUT)
+
+AS
+	PRINT 'Atividade por IMC = ' + CAST(@IMC AS VARCHAR(10)) + '...'
+	IF(@IMC>39.9)
+	BEGIN
+		SET @Atividade = 5
+	END
+	ELSE
+	BEGIN
+		SET @Atividade = (SELECT MIN(Cod_atividade) FROM Atividade WHERE imc>=@imc)
+	END
+
+CREATE PROCEDURE sp_calculo_imc (@Peso FLOAT), 
+				@Altura		FLOAT,
+				@IMC		FLOAT OUTPUT)
+AS
+	PRINT 'Calculando IMC para peso = ' + CAST(@Peso AS VARCHAR(10)) + 
+		' e altura = ' + CAST(@Altura AS VARCHAR(10)) + '...'
+	SET @IMC = @Peso / (@Altura * @Altura)
